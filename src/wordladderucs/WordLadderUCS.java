@@ -129,6 +129,43 @@ public class WordLadderUCS {
         this.setValue(new ArrayList<>(), endTime - startTime, nodesVisited);
     }
 
+    public void find_path_solution_GBFS(String starting_word, String target_word) {
+        long startTime = System.nanoTime();
+        if (starting_word.length() != target_word.length()) {
+            this.setValue(new ArrayList<>(), 0, 0);
+            return;
+        }
+
+        Queue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> -count_same_letter(node.word, target_word)));
+        Map<String, Integer> visited = new HashMap<>();
+        int nodesVisited = 0;
+
+        priorityQueue.add(new Node(starting_word, null, 0));
+
+        while (!priorityQueue.isEmpty()) {
+            Node current_node = priorityQueue.poll();
+            nodesVisited++;
+
+            if (current_node.word.equals(target_word)) {
+                List<String> temp = make_path_from_node(current_node);
+                long endTime = System.nanoTime();
+                this.setValue(temp, endTime - startTime, nodesVisited);
+                return;
+            }
+
+            for (String neighbor : find_word_possibility(current_node.word)) {
+                if (!visited.containsKey(neighbor) || visited.get(neighbor) > current_node.depth + 1) {
+                    visited.put(neighbor, current_node.depth + 1);
+                    priorityQueue.add(new Node(neighbor, current_node, current_node.depth + 1));
+                }
+            }
+        }
+
+        long endTime = System.nanoTime();
+        this.setValue(new ArrayList<>(), endTime - startTime, nodesVisited);
+    }
+
+
     private List<String> make_path_from_node(Node current) {
         List<String> path = new ArrayList<>();
         while (current != null) {
