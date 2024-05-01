@@ -1,16 +1,16 @@
-package wordladderucs;
+package wordladderucsgbfs;
 
 import utils.Dictionary;
 import java.util.*;
 
-public class WordLadderUCS {
+public class WordLadderUCS_GBFS {
 
     private List<String> path;
     private long executionTime;
     private int nodesVisited;
     private Dictionary dictionary;
 
-    public WordLadderUCS(List<String> path, long executionTime, int nodesVisited, Dictionary dictionary) {
+    public WordLadderUCS_GBFS(List<String> path, long executionTime, int nodesVisited, Dictionary dictionary) {
         this.path = path;
         this.executionTime = executionTime;
         this.nodesVisited = nodesVisited;
@@ -40,14 +40,7 @@ public class WordLadderUCS {
         this.nodesVisited = 0;
         this.executionTime = 0;
     }
-
-    public void print_information() {
-        System.out.print("The path is : ");
-        System.out.println(this.getPath().toString());
-        System.out.printf("The execution time :  %d", this.getExecutionTime());
-        System.out.printf("The node visited number : %d", this.getNodesVisited());
-    }
-
+    
     private List<String> find_word_possibility(String word) {
         List<String> valid_words = new ArrayList<>();
         char[] chars = word.toCharArray();
