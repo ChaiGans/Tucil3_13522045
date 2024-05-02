@@ -1,0 +1,1 @@
+javac -d ../bin utils/*.java wordladderastar/*.java wordladderucsgbfs/*.java WordLadderGUI.java Main.java
