@@ -6,14 +6,9 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class Dictionary {
-    private HashSet<String> words;
+    private static HashSet<String> words = new HashSet<>();
 
-    public Dictionary(String filename) {
-        words = new HashSet<>();
-        load_word(filename);
-    }
-
-    private void load_word(String filename) {
+    public static void load_word(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -25,11 +20,11 @@ public class Dictionary {
         }
     }
 
-    public boolean word_valid_checker(String word) {
+    public static boolean word_valid_checker(String word) {
         return words.contains(word);
     }
 
-    public void print_dictionary() {
-        System.out.println(this.words.toString());
+    public static void print_dictionary() {
+        System.out.println(words.toString());
     }
 }

@@ -1,8 +1,9 @@
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import wordladderastar.WordLadderAStar;
-import wordladderucsgbfs.WordLadderUCS_GBFS;
+import algorithm.WordLadderAStar;
+import algorithm.WordLadderGBFS;
+import algorithm.WordLadderUCS;
 import utils.Dictionary;
 
 public class Main {
@@ -27,7 +28,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Dictionary dictionary = new Dictionary("./utils/words_alpha.txt");
+        Dictionary.load_word("./utils/words.txt");
 
         while (true) {
             String starting_word = "";
@@ -38,7 +39,7 @@ public class Main {
                 System.out.println("Enter the starting word:");
                 if (scan.hasNext()) {
                     starting_word = scan.next();
-                    if (dictionary.word_valid_checker(starting_word)) {
+                    if (Dictionary.word_valid_checker(starting_word)) {
                         valid_input = true;
                     } else {
                         System.out.println("Word is not found in dictionary. Input a valid english word.");
@@ -54,7 +55,7 @@ public class Main {
                 System.out.println("Enter the ending word:");
                 if (scan.hasNext()) {
                     ending_word = scan.next();
-                    if (dictionary.word_valid_checker(ending_word)) {
+                    if (Dictionary.word_valid_checker(ending_word)) {
                         valid_input = true;
                     } else {
                         System.out.println("Word is not found in dictionary. Input a valid english word.");
@@ -91,7 +92,7 @@ public class Main {
             boolean found = false;
             switch (choice) {
                 case 1:
-                    WordLadderUCS_GBFS solverUCS = new WordLadderUCS_GBFS(new ArrayList<>(), 0, 0, dictionary);
+                    WordLadderUCS solverUCS = new WordLadderUCS(new ArrayList<>(), 0, 0);
                     solverUCS.find_path_solution_UCS(starting_word, ending_word);
                     if (!solverUCS.getPath().isEmpty()) {
                         print_information(solverUCS.getPath(), solverUCS.getExecutionTime(), solverUCS.getNodesVisited());
@@ -99,7 +100,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    WordLadderUCS_GBFS solverGBFS = new WordLadderUCS_GBFS(new ArrayList<>(), 0, 0, dictionary);
+                    WordLadderGBFS solverGBFS = new WordLadderGBFS(new ArrayList<>(), 0, 0);
                     solverGBFS.find_path_solution_GBFS(starting_word, ending_word);
                     if (!solverGBFS.getPath().isEmpty()) {
                         print_information(solverGBFS.getPath(), solverGBFS.getExecutionTime(), solverGBFS.getNodesVisited());
@@ -107,7 +108,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    WordLadderAStar solverAStar = new WordLadderAStar(new ArrayList<>(), 0, 0, dictionary);
+                    WordLadderAStar solverAStar = new WordLadderAStar(new ArrayList<>(), 0, 0);
                     solverAStar.find_path_solution_AStar(starting_word, ending_word);
                     if (!solverAStar.getPath().isEmpty()) {
                         print_information(solverAStar.getPath(), solverAStar.getExecutionTime(), solverAStar.getNodesVisited());

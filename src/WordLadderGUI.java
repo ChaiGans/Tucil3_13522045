@@ -1,4 +1,9 @@
 import javax.swing.*;
+
+import algorithm.WordLadderAStar;
+import algorithm.WordLadderGBFS;
+import algorithm.WordLadderUCS;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import wordladderastar.WordLadderAStar;
-import wordladderucsgbfs.WordLadderUCS_GBFS;
 import utils.Dictionary;
 
 public class WordLadderGUI extends JFrame implements ActionListener {
@@ -99,17 +102,17 @@ public class WordLadderGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Dictionary dictionary = new Dictionary("./utils/words.txt");
+        Dictionary.load_word("./utils/words.txt");
         if (e.getSource() == solveButton) {
             String startingWord = startingWordField.getText().toLowerCase();
             String endingWord = endingWordField.getText().toLowerCase();
 
-            if (!dictionary.word_valid_checker(startingWord)) {
+            if (!Dictionary.word_valid_checker(startingWord)) {
                 JOptionPane.showMessageDialog(this, "Invalid input words. Starting word is not defined in the dictionary.");
                 return;
             }
 
-            if (!dictionary.word_valid_checker(endingWord)) {
+            if (!Dictionary.word_valid_checker(endingWord)) {
                 JOptionPane.showMessageDialog(this, "Invalid input words. Ending word is not defined in the dictionary.");
                 return;
             }
@@ -129,7 +132,7 @@ public class WordLadderGUI extends JFrame implements ActionListener {
             boolean found = false;
             switch (selectedAlgorithm) {
                 case "UCS":
-                    WordLadderUCS_GBFS solverUCS = new WordLadderUCS_GBFS(new ArrayList<>(), 0, 0, dictionary);
+                    WordLadderUCS solverUCS = new WordLadderUCS(new ArrayList<>(), 0, 0);
                     solverUCS.find_path_solution_UCS(startingWord, endingWord);
                     if (!solverUCS.getPath().isEmpty()) {
                         found = true;
@@ -138,7 +141,7 @@ public class WordLadderGUI extends JFrame implements ActionListener {
                     resultArea.setText(get_information("Uniformed Cost Search", solverUCS.getPath(), solverUCS.getExecutionTime(), solverUCS.getNodesVisited()));
                     break;
                 case "GBFS":
-                    WordLadderUCS_GBFS solverGBFS = new WordLadderUCS_GBFS(new ArrayList<>(), 0, 0, dictionary);
+                    WordLadderGBFS solverGBFS = new WordLadderGBFS(new ArrayList<>(), 0, 0);
                     solverGBFS.find_path_solution_GBFS(startingWord, endingWord);
                     if (!solverGBFS.getPath().isEmpty()) {
                         found = true;
@@ -146,7 +149,7 @@ public class WordLadderGUI extends JFrame implements ActionListener {
                     resultArea.setText(get_information("Greedy Best First Search", solverGBFS.getPath(), solverGBFS.getExecutionTime(), solverGBFS.getNodesVisited()));
                     break;
                 case "A*":
-                    WordLadderAStar solverAStar = new WordLadderAStar(new ArrayList<>(), 0, 0, dictionary);
+                    WordLadderAStar solverAStar = new WordLadderAStar(new ArrayList<>(), 0, 0);
                     solverAStar.find_path_solution_AStar(startingWord, endingWord);
                     if (!solverAStar.getPath().isEmpty()) {
                         found = true;
