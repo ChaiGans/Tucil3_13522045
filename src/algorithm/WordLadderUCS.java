@@ -10,18 +10,15 @@ public class WordLadderUCS extends WordLadder implements Utils {
     }
 
     public void print_queue(Queue<Node> queue) {
-    // Create a temporary queue to help in printing without altering the original queue
         Queue<Node> tempQueue = new PriorityQueue<>(queue);
         tempQueue.addAll(queue);    
 
-        // Dequeue from the temporary queue to maintain priority order
-        // System.out.println("Queue contents (in priority order):");
         while (!tempQueue.isEmpty()) {
             Node node = tempQueue.poll();
-            System.out.print(node.word + " ");  // Print the word of each node
+            System.out.print(node.word + " ");
             System.out.print(node.depth + " ");
         }
-        System.out.println();  // Move to a new line after printing all contents
+        System.out.println();
     }
 
     public void find_path_solution_UCS(String starting_word, String target_word) {
