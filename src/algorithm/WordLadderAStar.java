@@ -39,15 +39,12 @@ public class WordLadderAStar extends WordLadder implements Utils {
         }
 
         PriorityQueue<Node> priority_queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.f));
-        Map<String, Integer> g_score = new HashMap<>();
-
-        g_score.put(starting_word, 0);
+        Map<String, Integer> visited = new HashMap<>();
 
         priority_queue.add(new Node(starting_word, null, 0, count_mismatch_letter(starting_word, target_word)));
 
         while (!priority_queue.isEmpty()) {
             Node current_node = priority_queue.poll();
-            // print_queue(priority_queue);
             nodesVisited++;
 
             if (current_node.word.equals(target_word)) {
@@ -57,13 +54,9 @@ public class WordLadderAStar extends WordLadder implements Utils {
             }
 
             for (String children : find_word_possibility(current_node.word)) {
-                int temp_g_score = current_node.g + 1;
-                if (temp_g_score < g_score.getOrDefault(children, Integer.MAX_VALUE)) {
-                    g_score.put(children, temp_g_score);
-                    int f_count = temp_g_score + count_mismatch_letter(children, target_word);
-                    if (!priority_queue.contains(new Node(children, current_node, temp_g_score, f_count))) {
-                        priority_queue.add(new Node(children, current_node, temp_g_score, f_count));
-                    }
+                if (!visited.containsKey(children) || visited.get(children) > current_node.g + 1) {
+                    visited.put(children, current_node.g + 1);
+                    priority_queue.add(new Node(children, current_node, current_node.g + 1, current_node.g + 1 + count_mismatch_letter(children, target_word)));
                 }
             }
         }
