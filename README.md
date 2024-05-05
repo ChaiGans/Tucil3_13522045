@@ -7,6 +7,7 @@
 - [Short Description](#short-description)
 - [Creator](#creator)
 - [Built With](#built-with)
+- [Prerequisites](#prerequisites)
 - [How to run](#how-to-run)
 - [Guides](#guides)
 - [Application Overview](#application-overview)
@@ -30,6 +31,10 @@ The current dictionary used by this program can be found [here](https://docs.ora
 - [Java](https://docs.oracle.com/en/java/)
 - [Java Swing](https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html)
 
+## Prerequisites
+- For Windows users: Ensure `Java 19` or a newer version is installed on your computer to successfully compile and execute the code.
+- For Linux users: Install the `most recent version` of Java on your computer to compile and execute the code. Verify that the installed Java version supports graphical interfaces, or you can install it using the command `sudo apt install openjdk-19-jdk`.
+
 ## How to run
 If you want to run this program you will need to do these steps
 
@@ -45,14 +50,21 @@ cd src
 ```
 
 3. Compile and run Java bytecode by writing this into terminal :
-- For GUI
+- For GUI (Windows)
 ```shell
 ./build.bat
 ```
-
-- For CLI
+- For GUI (Linux)
+```shell
+./build.sh
+```
+- For CLI (Windows)
 ```shell
 ./cli.bat
+```
+- For CLI (Linux)
+```shell
+./cli.sh
 ```
 
 ## Guides
