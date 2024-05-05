@@ -29,7 +29,7 @@ public class WordLadderUCS extends WordLadder implements Utils {
         }
 
         Queue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> node.depth));
-        Map<String, Integer> visited = new HashMap<>();
+        Map<String, Boolean> visited = new HashMap<>();
         int nodesVisited = 0;
 
         priorityQueue.add(new Node(starting_word, null, 0));
@@ -46,8 +46,8 @@ public class WordLadderUCS extends WordLadder implements Utils {
             }
 
             for (String neighbor : find_word_possibility(current_node.word)) {
-                if (!visited.containsKey(neighbor) || visited.get(neighbor) > current_node.depth + 1) {
-                    visited.put(neighbor, current_node.depth + 1);
+                if (!visited.containsKey(neighbor)) {
+                    visited.put(neighbor, true);
                     priorityQueue.add(new Node(neighbor, current_node, current_node.depth + 1));
                 }
             }

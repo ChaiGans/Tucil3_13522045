@@ -45,8 +45,13 @@ public class WordLadderAStar extends WordLadder implements Utils {
 
         while (!priority_queue.isEmpty()) {
             Node current_node = priority_queue.poll();
-            nodesVisited++;
+            
+            if (current_node.g > visited.getOrDefault(current_node.word, 0)) {
+                continue; 
+            }
 
+            nodesVisited++;
+            
             if (current_node.word.equals(target_word)) {
                 long endTime = System.nanoTime();
                 this.setValue(make_path_from_node(current_node), endTime - startTime, nodesVisited);
