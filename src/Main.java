@@ -15,16 +15,19 @@ public class Main {
         System.out.println("4. Exit program");
     }
     
-    public static void print_information(List<String> path, long exec, int node_number) {
+    public static String get_information(List<String> path, long exec, int node_number) {
         long convert = TimeUnit.MILLISECONDS.convert(exec, TimeUnit.NANOSECONDS);
-
-        System.out.print("The path is : ");
-        System.out.println(path.toString());
-        System.out.printf("The execution time : ");
-        System.out.print(convert + " ms.\n");
-        System.out.printf("The node visited number : ");
-        System.out.print(node_number + " nodes.\n");
+        String resultText = "";
+        if (path.isEmpty()) {
+            resultText += "No path found\n";
+        } else {
+            resultText += "Result path: " + path.toString() + "\n";
+        }
+        resultText += "Execution time: " + convert + " ms.\n";
+        resultText += "Total node visited: " + node_number + " nodes.\n";
+        return resultText;
     }
+
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -89,36 +92,22 @@ public class Main {
                 continue;
             }
 
-            boolean found = false;
             switch (choice) {
                 case 1:
                     WordLadderUCS solverUCS = new WordLadderUCS(new ArrayList<>(), 0, 0);
                     solverUCS.find_path_solution_UCS(starting_word, ending_word);
-                    if (!solverUCS.getPath().isEmpty()) {
-                        print_information(solverUCS.getPath(), solverUCS.getExecutionTime(), solverUCS.getNodesVisited());
-                        found = true;
-                    }
+                    System.out.println(get_information(solverUCS.getPath(), solverUCS.getExecutionTime(), solverUCS.getNodesVisited()));
                     break;
                 case 2:
                     WordLadderGBFS solverGBFS = new WordLadderGBFS(new ArrayList<>(), 0, 0);
                     solverGBFS.find_path_solution_GBFS(starting_word, ending_word);
-                    if (!solverGBFS.getPath().isEmpty()) {
-                        print_information(solverGBFS.getPath(), solverGBFS.getExecutionTime(), solverGBFS.getNodesVisited());
-                        found = true;
-                    }
+                    System.out.println(get_information(solverGBFS.getPath(), solverGBFS.getExecutionTime(), solverGBFS.getNodesVisited()));
                     break;
                 case 3:
                     WordLadderAStar solverAStar = new WordLadderAStar(new ArrayList<>(), 0, 0);
                     solverAStar.find_path_solution_AStar(starting_word, ending_word);
-                    if (!solverAStar.getPath().isEmpty()) {
-                        print_information(solverAStar.getPath(), solverAStar.getExecutionTime(), solverAStar.getNodesVisited());
-                        found = true;
-                    }
+                    System.out.println(get_information(solverAStar.getPath(), solverAStar.getExecutionTime(), solverAStar.getNodesVisited()));
                     break;
-            }
-
-            if (!found) {
-                System.out.println("Path not found. So sadd :(");
             }
         }
 

@@ -23,7 +23,11 @@ public class WordLadderGUI extends JFrame implements ActionListener {
     public static String get_information(String algorithm_name, List<String> path, long exec, int node_number) {
         long convert = TimeUnit.MILLISECONDS.convert(exec, TimeUnit.NANOSECONDS);
         String resultText = "Selected algorithm is " + algorithm_name + ".\n";
-        resultText += "Result path: " + path.toString() + "\n";
+        if (path.isEmpty()) {
+            resultText += "No path found\n";
+        } else {
+            resultText += "Result path: " + path.toString() + "\n";
+        }
         resultText += "Execution time: " + convert + " ms.\n";
         resultText += "Total node visited: " + node_number + " nodes.\n";
         return resultText;
@@ -129,37 +133,23 @@ public class WordLadderGUI extends JFrame implements ActionListener {
                 return;
             }
 
-            boolean found = false;
             switch (selectedAlgorithm) {
                 case "UCS":
                     WordLadderUCS solverUCS = new WordLadderUCS(new ArrayList<>(), 0, 0);
                     solverUCS.find_path_solution_UCS(startingWord, endingWord);
-                    if (!solverUCS.getPath().isEmpty()) {
-                        found = true;
-                    }
-
                     resultArea.setText(get_information("Uniformed Cost Search", solverUCS.getPath(), solverUCS.getExecutionTime(), solverUCS.getNodesVisited()));
                     break;
                 case "GBFS":
                     WordLadderGBFS solverGBFS = new WordLadderGBFS(new ArrayList<>(), 0, 0);
                     solverGBFS.find_path_solution_GBFS(startingWord, endingWord);
-                    if (!solverGBFS.getPath().isEmpty()) {
-                        found = true;
-                    }
                     resultArea.setText(get_information("Greedy Best First Search", solverGBFS.getPath(), solverGBFS.getExecutionTime(), solverGBFS.getNodesVisited()));
                     break;
                 case "A*":
                     WordLadderAStar solverAStar = new WordLadderAStar(new ArrayList<>(), 0, 0);
                     solverAStar.find_path_solution_AStar(startingWord, endingWord);
-                    if (!solverAStar.getPath().isEmpty()) {
-                        found = true;
-                    }
                     resultArea.setText(get_information("A-Star Search", solverAStar.getPath(), solverAStar.getExecutionTime(), solverAStar.getNodesVisited()));
                     break;
                 }
-            if (!found) {
-                resultArea.setText("No path found。");
-            }
         }
     }
 
