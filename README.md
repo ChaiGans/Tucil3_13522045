@@ -56,6 +56,7 @@ cd src
 ```
 - For GUI (Linux)
 ```shell
+chmod +x ./build.sh
 ./build.sh
 ```
 - For CLI (Windows)
@@ -64,6 +65,7 @@ cd src
 ```
 - For CLI (Linux)
 ```shell
+chmod +x ./cli.sh
 ./cli.sh
 ```
 
