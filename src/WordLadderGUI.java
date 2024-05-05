@@ -133,6 +133,8 @@ public class WordLadderGUI extends JFrame implements ActionListener {
                 return;
             }
 
+            Runtime runtime = Runtime.getRuntime();
+            long initialMemory = runtime.totalMemory() - runtime.freeMemory();
             switch (selectedAlgorithm) {
                 case "UCS":
                     WordLadderUCS solverUCS = new WordLadderUCS(new ArrayList<>(), 0, 0);
@@ -149,7 +151,10 @@ public class WordLadderGUI extends JFrame implements ActionListener {
                     solverAStar.find_path_solution_AStar(startingWord, endingWord);
                     resultArea.setText(get_information("A-Star Search", solverAStar.getPath(), solverAStar.getExecutionTime(), solverAStar.getNodesVisited()));
                     break;
-                }
+            }
+            long finalMemory = runtime.totalMemory() - runtime.freeMemory();
+            long memoryUsed = finalMemory - initialMemory;
+            System.out.println("Memory used: " + memoryUsed + " bytes");
         }
     }
 
