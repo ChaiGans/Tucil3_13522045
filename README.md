@@ -40,7 +40,7 @@ If you want to run this program you will need to do these steps
 
 1. Clone this repository :
 ```shell
-https://github.com/ChaiGans/Tucil3_13522045.git
+git clone https://github.com/ChaiGans/Tucil3_13522045.git
 ```
 
 2. Navigate to the `src` directory:
